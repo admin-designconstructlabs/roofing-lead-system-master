@@ -134,7 +134,8 @@ export default function LeadWizard() {
             <SelectionCard
               key={opt}
               selected={watch("fundingSource") === opt}
-              onClick={() => setValue("fundingSource", opt)}
+              // The fix is here: 'as any' tells TypeScript to relax
+              onClick={() => setValue("fundingSource", opt as any)}
             >
               {opt}
             </SelectionCard>
