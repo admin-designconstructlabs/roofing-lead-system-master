@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
 
         console.log(`Lead Scored: ${status} (${score}) - Flags: ${flagsString}`);
 
-        // 3. Logic: Split Funding Source
-        let fundingMethod = lead.fundingSource;
+        // 3. Logic: Split Funding Source (FIXED TYPE ERROR HERE)
+        let fundingMethod: string = lead.fundingSource;
         let claimStatus = "N/A";
 
         if (lead.fundingSource.includes("Insurance")) {
@@ -103,12 +103,10 @@ export async function POST(req: NextRequest) {
                 if (!sheet) {
                     sheet = await doc.addSheet({
                         title: "Leads",
-                        // Added "Timeline" to headers
                         headerValues: ["Timestamp", "Status", "Score", "Category", "Full Name", "Phone", "Email", "ZIP Code", "Timeline", "Active Leak", "Funding Method", "Insurance Claim Status", "Roof Steepness", "Stories", "Flags", "Recommended Action", "RawPayload"]
                     });
                 }
 
-                // Add Row
                 await sheet.addRow({
                     "Timestamp": new Date().toISOString(),
                     "Status": status,
@@ -118,7 +116,7 @@ export async function POST(req: NextRequest) {
                     "Phone": lead.phone,
                     "Email": lead.email,
                     "ZIP Code": lead.zipCode,
-                    "Timeline": lead.timeline, // <--- NOW TRACKING TIMELINE
+                    "Timeline": lead.timeline,
                     "Active Leak": lead.activeLeak ? "Yes" : "No",
                     "Funding Method": fundingMethod,
                     "Insurance Claim Status": claimStatus,
