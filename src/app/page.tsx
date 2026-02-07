@@ -134,7 +134,6 @@ export default function LeadWizard() {
             <SelectionCard
               key={opt}
               selected={watch("fundingSource") === opt}
-              // The fix is here: 'as any' tells TypeScript to relax
               onClick={() => setValue("fundingSource", opt as any)}
             >
               {opt}
@@ -291,7 +290,14 @@ export default function LeadWizard() {
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Roof Steepness</label>
                   <div className="grid grid-cols-2 gap-3">
                     {["Flat", "Low Slope", "Steep", "Very Steep"].map(opt => (
-                      <SelectionCard key={opt} selected={watch("roofSteepness") === opt} onClick={() => setValue("roofSteepness", opt)} className="py-3 text-sm">{opt}</SelectionCard>
+                      <SelectionCard
+                        key={opt}
+                        selected={watch("roofSteepness") === opt}
+                        onClick={() => setValue("roofSteepness", opt as any)}
+                        className="py-3 text-sm"
+                      >
+                        {opt}
+                      </SelectionCard>
                     ))}
                   </div>
                 </div>
@@ -299,7 +305,14 @@ export default function LeadWizard() {
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Building Height</label>
                   <div className="flex gap-3">
                     {["1", "2", "3+"].map(opt => (
-                      <SelectionCard key={opt} selected={watch("stories") === opt} onClick={() => setValue("stories", opt)} className="flex-1 text-center justify-center">{opt} Story</SelectionCard>
+                      <SelectionCard
+                        key={opt}
+                        selected={watch("stories") === opt}
+                        onClick={() => setValue("stories", opt as any)}
+                        className="flex-1 text-center justify-center"
+                      >
+                        {opt} Story
+                      </SelectionCard>
                     ))}
                   </div>
                 </div>
@@ -310,7 +323,11 @@ export default function LeadWizard() {
             {step === 5 && (
               <div className="grid grid-cols-1 gap-3 animate-fade-in">
                 {["ASAP", "1-3 Months", "3+ Months", "Just Researching"].map((opt) => (
-                  <SelectionCard key={opt} selected={watch("timeline") === opt} onClick={() => setValue("timeline", opt)}>
+                  <SelectionCard
+                    key={opt}
+                    selected={watch("timeline") === opt}
+                    onClick={() => setValue("timeline", opt as any)}
+                  >
                     {opt}
                   </SelectionCard>
                 ))}
